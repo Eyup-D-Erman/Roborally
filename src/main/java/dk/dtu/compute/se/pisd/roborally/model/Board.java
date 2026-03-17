@@ -59,9 +59,19 @@ public class Board extends Subject {
 
     private boolean stepMode;
 
-    // TODO A6a: add a moveCounter attribute to this class;
+    // DONE A6a: add a moveCounter attribute to this class;
     //     and add the corresponding getter and setter methods for
     //     this move counter at an appropriate place in this class.
+    private int moveCounter = 0;
+
+    public int getMoveCounter() {
+        return moveCounter;
+    }
+
+    public void setMoveCounter(int moves) {
+        moveCounter = moves;
+        notifyChange();
+    }
 
     public Board(int width, int height, @NotNull String boardName) {
         this.boardName = boardName;
