@@ -60,6 +60,7 @@ public class GameController {
             space.setPlayer(player);
             oldSpace.setPlayer(null);
             nextPlayer(player);
+            board.incrementMoveCounter();
         }
 
     }
