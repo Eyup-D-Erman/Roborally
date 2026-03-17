@@ -45,7 +45,7 @@ public class GameController {
      * @param space the space to which the current player should move
      */
     public void moveCurrentPlayerToSpace(@NotNull Space space)  {
-        // TODO A6a: this method should be implemented for Assignment 6a:
+        // DONE A6a: this method should be implemented for Assignment 6a:
         //   - the current player should be moved to the given space
         //     (if it is free())
         //   - and the current player should be set to the player
@@ -53,6 +53,14 @@ public class GameController {
         //   - the counter of moves in the game should be increased by one
         //     if and when the player is moved (the counter and the status line
         //     message needs to be implemented at another place)
+
+        if (space.getPlayer() == null) {
+            Player player = board.getCurrentPlayer();
+            Space oldSpace = player.getSpace();
+            space.setPlayer(player);
+            oldSpace.setPlayer(null);
+            nextPlayer(player);
+        }
 
     }
 
@@ -234,4 +242,9 @@ public class GameController {
         assert false;
     }
 
+    // Helper method to change player to next player
+    private void nextPlayer(Player player) {
+        Player nextPlayer = board.getPlayer ((board.getPlayerNumber(player) + 1) % board.getPlayersNumber());
+        board.setCurrentPlayer(nextPlayer);
+    }
 }
