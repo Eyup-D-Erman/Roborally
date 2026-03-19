@@ -57,6 +57,8 @@ public class Board extends Subject {
 
     private int step = 0;
 
+    private int counter = 0;
+
     private boolean stepMode;
 
     // TODO A6a: add a moveCounter attribute to this class;
@@ -175,6 +177,14 @@ public class Board extends Subject {
         }
     }
 
+    public int getCounter() {return counter;}
+
+    public void setCounter(int counter) {
+        if (counter != this.counter) {
+            this.counter = counter;
+            notifyChange();
+        }
+    }
     /**
      * Returns the neighbour of the given space of the board in the given heading.
      * The neighbour is returned only, if it can be reached from the given space
