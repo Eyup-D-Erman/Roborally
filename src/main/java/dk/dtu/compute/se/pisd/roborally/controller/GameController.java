@@ -53,7 +53,17 @@ public class GameController {
         //   - the counter of moves in the game should be increased by one
         //     if and when the player is moved (the counter and the status line
         //     message needs to be implemented at another place)
+        //først laver jeg lige en sikring for at der ikke er nogen allerede
+        if(space.getPlayer() == null){
+            space.setPlayer(board.getCurrentPlayer());
+        }
+        int indexOfPlayer = board.getPlayerNumber(board.getCurrentPlayer());
 
+        int indexOfNextPlayer = ((indexOfPlayer + 1) % board.getPlayersNumber());
+
+        var nextPlayerDownload = board.getPlayer(indexOfNextPlayer);
+
+        board.setCurrentPlayer(nextPlayerDownload);
     }
 
     // XXX A6c
