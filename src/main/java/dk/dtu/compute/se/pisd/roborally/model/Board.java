@@ -228,7 +228,7 @@ public class Board extends Subject {
         // TODO A6c: changed the status so that it shows the phase, the current player, and the current register
         //     and you can remove the move count status message message and the corresponding counter again
         // TODO A6e: add something to the status message, when a player has won the game
-        return "Player = " + getCurrentPlayer().getName() + ", Moves = " + getCounter();
+        return "Player = " + getCurrentPlayer().getName() + "\n, Moves = " + getCounter();
     }
 
 }
