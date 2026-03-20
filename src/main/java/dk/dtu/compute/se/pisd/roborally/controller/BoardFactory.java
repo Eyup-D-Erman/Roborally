@@ -87,6 +87,12 @@ public class BoardFactory {
             action.setHeading(Heading.WEST);
             space.getActions().add(action);
 
+            space = board.getSpace(2, 2);
+            space.getActions().add(new Checkpoint(1));
+
+            space = board.getSpace(4, 3);
+            space.getActions().add(new Checkpoint(2));
+
             return board;
 
         } else if (name.equals(ADVANCED_BOARD_NAME)) {
