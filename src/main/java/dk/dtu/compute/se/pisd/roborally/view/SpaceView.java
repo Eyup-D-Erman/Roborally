@@ -37,6 +37,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
+// Imports for drawing checkpoints
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 
