@@ -22,6 +22,7 @@
 package dk.dtu.compute.se.pisd.roborally.view;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
+import dk.dtu.compute.se.pisd.roborally.controller.Checkpoint;
 import dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt;
 import dk.dtu.compute.se.pisd.roborally.model.Heading;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
@@ -35,6 +36,9 @@ import javafx.scene.shape.Rectangle;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+
+import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
 
 /**
  * ...
@@ -152,6 +156,21 @@ public class SpaceView extends StackPane implements ViewObserver {
                     arrow.setStroke(Color.GREY);
                     arrow.setRotate((90 * heading.ordinal()) % 360);
                     this.getChildren().add(arrow);
+                }
+            }
+
+            // Loop over each action in getAction
+            for (Object action : space.getActions()) {
+                if (action instanceof Checkpoint checkpoint) {
+                    // if checkpoint found draw checkpoint
+                    Circle circle = new Circle((SPACE_HEIGHT - 6) / 2.0);
+                    circle.setFill(Color.YELLOW);
+                    circle.setStroke(Color.BLACK);
+                    this.getChildren().add(circle);
+
+                    Text text = new Text("" + checkpoint.getNumber());
+                    text.setStroke(Color.BLACK);
+                    this.getChildren().add(text);
                 }
             }
 
