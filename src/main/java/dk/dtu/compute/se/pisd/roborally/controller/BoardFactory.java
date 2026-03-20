@@ -54,44 +54,49 @@ public class BoardFactory {
         //     return it. In case the name is null, some default board should
         //     be returned (defensive programming).
 
-        Board board;
-        if (name == null) {
-            board = new Board(8,8, "<none>");
+        if (name.equals(SIMPLE_BOARD_NAME)) {
+            Board board = new Board(14,7, "simple");
+
+            // add some walls, actions and checkpoints to some spaces
+            Space space = board.getSpace(0,0);
+            space.getWalls().add(Heading.SOUTH);
+            ConveyorBelt action  = new ConveyorBelt();
+            action.setHeading(Heading.WEST);
+            space.getActions().add(action);
+
+            space = board.getSpace(1,0);
+            space.getWalls().add(Heading.NORTH);
+            action  = new ConveyorBelt();
+            action.setHeading(Heading.WEST);
+            space.getActions().add(action);
+
+            space = board.getSpace(1,1);
+            space.getWalls().add(Heading.WEST);
+            action  = new ConveyorBelt();
+            action.setHeading(Heading.NORTH);
+            space.getActions().add(action);
+
+            space = board.getSpace(5,5);
+            space.getWalls().add(Heading.SOUTH);
+            action  = new ConveyorBelt();
+            action.setHeading(Heading.WEST);
+            space.getActions().add(action);
+
+            space = board.getSpace(6,5);
+            action  = new ConveyorBelt();
+            action.setHeading(Heading.WEST);
+            space.getActions().add(action);
+
+            return board;
+
+        } else if (name.equals(ADVANCED_BOARD_NAME)) {
+            Board board = new Board(20,20, "advanced");
+            return board;
         } else {
-            board = new Board(8,8, name);
+            // returns an empty board
+            Board board = new Board(8, 8, "<none>");
+            return board;
         }
-
-        // add some walls, actions and checkpoints to some spaces
-        Space space = board.getSpace(0,0);
-        space.getWalls().add(Heading.SOUTH);
-        ConveyorBelt action  = new ConveyorBelt();
-        action.setHeading(Heading.WEST);
-        space.getActions().add(action);
-
-        space = board.getSpace(1,0);
-        space.getWalls().add(Heading.NORTH);
-        action  = new ConveyorBelt();
-        action.setHeading(Heading.WEST);
-        space.getActions().add(action);
-
-        space = board.getSpace(1,1);
-        space.getWalls().add(Heading.WEST);
-        action  = new ConveyorBelt();
-        action.setHeading(Heading.NORTH);
-        space.getActions().add(action);
-
-        space = board.getSpace(5,5);
-        space.getWalls().add(Heading.SOUTH);
-        action  = new ConveyorBelt();
-        action.setHeading(Heading.WEST);
-        space.getActions().add(action);
-
-        space = board.getSpace(6,5);
-        action  = new ConveyorBelt();
-        action.setHeading(Heading.WEST);
-        space.getActions().add(action);
-
-        return board;
     }
 
     // DONE A6b: add a method that returns a list (of type List<String>)
