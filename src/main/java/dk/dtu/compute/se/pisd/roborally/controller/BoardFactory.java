@@ -4,6 +4,9 @@ import dk.dtu.compute.se.pisd.roborally.model.Board;
 import dk.dtu.compute.se.pisd.roborally.model.Heading;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
 
+import java.util.List;
+
+
 /**
  * A factory for creating boards. The factory itself is implemented as a singleton.
  *
@@ -11,6 +14,8 @@ import dk.dtu.compute.se.pisd.roborally.model.Space;
  */
 // XXX A3: might be used for creating a first slightly more interesting board.
 public class BoardFactory {
+    public static final String SIMPLE_BOARD_NAME = "simple";
+    public static final String ADVANCED_BOARD_NAME = "advanced";
 
     /**
      * The single instance of this class, which is lazily instantiated on demand.
@@ -89,11 +94,20 @@ public class BoardFactory {
         return board;
     }
 
-    // TODO A6b: add a method that returns a list (of type List<String>)
+    // DONE A6b: add a method that returns a list (of type List<String>)
     //     of all available board names. The corresponding method
     //     createBoard(String name) must return a board for any of the
     //     names in this list. Make sure that the new method that you create
     //     here has a proper JavaDoc documentation.
     //
+    /**
+     * Returns a list of all available board names that can be used
+     * with createBoard(String name).
+     *
+     * @return a list of all available board names
+     */
+    public static List<String> getBoardNames() {
+        return List.of(SIMPLE_BOARD_NAME, ADVANCED_BOARD_NAME);
+    }
 
 }
