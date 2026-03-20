@@ -49,7 +49,7 @@ public class BoardFactory {
      * @return the new board corresponding to that name
      */
     public Board createBoard(String name) {
-        // TODO A6b: Implement this method properly as described in Assignment 6b.
+        // DONE A6b: Implement this method properly as described in Assignment 6b.
         //     Dependent on the provided name, create a board accordingly and
         //     return it. In case the name is null, some default board should
         //     be returned (defensive programming).
