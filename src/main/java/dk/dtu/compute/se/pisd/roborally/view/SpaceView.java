@@ -136,6 +136,25 @@ public class SpaceView extends StackPane implements ViewObserver {
 
                 this.getChildren().add(pane);
             }
+
+            // Loop over each action in getAction
+            for (Object action : space.getActions()) {
+                if (action instanceof ConveyorBelt conveyorBelt) {
+                    // if conveyor belt found draw conveyor belt
+                    Heading heading = conveyorBelt.getHeading();
+
+                    Polygon arrow = new Polygon(
+                            2.0, 2.0,
+                            (SPACE_WIDTH - 6.0) / 2.0, SPACE_HEIGHT - 6.0,
+                            SPACE_WIDTH - 6.0, 2.0
+                    );
+                    arrow.setFill(Color.LIGHTGRAY);
+                    arrow.setStroke(Color.GREY);
+                    arrow.setRotate((90 * heading.ordinal()) % 360);
+                    this.getChildren().add(arrow);
+                }
+            }
+
             updatePlayer();
         }
     }
