@@ -11,14 +11,14 @@ import org.jetbrains.annotations.NotNull;
  *
  */
 public class Checkpoint extends FieldAction{
-    private Heading heading;
+    private int number;
 
-    public Heading getHeading() {
-        return heading;
+    public int getNumber() {
+        return number;
     }
 
-    public void setHeading(Heading heading) {
-        this.heading = heading;
+    public void setNumber(int number) {
+        this.number = number;
     }
 
     /**
