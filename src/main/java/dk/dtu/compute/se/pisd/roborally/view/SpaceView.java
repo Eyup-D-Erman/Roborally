@@ -22,12 +22,19 @@
 package dk.dtu.compute.se.pisd.roborally.view;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
+import dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt;
+import dk.dtu.compute.se.pisd.roborally.model.Heading;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Rectangle;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 /**
  * ...
@@ -92,7 +99,43 @@ public class SpaceView extends StackPane implements ViewObserver {
 
             // TODO A6b: drawing the walls and the field action(s) on
             //     this space could be implemented here.
+            List<Heading> walls = space.getWalls();
+            if (walls != null) {
+                Pane pane = new Pane();
+                Rectangle rectangle = new Rectangle(0.0, 0.0, SPACE_WIDTH, SPACE_HEIGHT);
+                rectangle.setFill(Color.TRANSPARENT);
+                pane.getChildren().add(rectangle);
 
+                if (walls.contains(Heading.SOUTH)) {
+                    Line southLine = new Line(2, SPACE_HEIGHT - 2, SPACE_WIDTH - 2, SPACE_HEIGHT - 2);
+                    southLine.setStroke(Color.RED);
+                    southLine.setStrokeWidth(5);
+                    pane.getChildren().add(southLine);
+                }
+
+                if (walls.contains(Heading.NORTH)) {
+                    Line northLine = new Line(2, 2, SPACE_WIDTH - 2, 2);
+                    northLine.setStroke(Color.RED);
+                    northLine.setStrokeWidth(5);
+                    pane.getChildren().add(northLine);
+                }
+
+                if (walls.contains(Heading.EAST)) {
+                    Line eastLine = new Line(SPACE_WIDTH - 2, 2, SPACE_WIDTH - 2, SPACE_HEIGHT - 2);
+                    eastLine.setStroke(Color.RED);
+                    eastLine.setStrokeWidth(5);
+                    pane.getChildren().add(eastLine);
+                }
+
+                if (walls.contains(Heading.WEST)) {
+                    Line westLine = new Line(2, 2, 2, SPACE_HEIGHT - 2);
+                    westLine.setStroke(Color.RED);
+                    westLine.setStrokeWidth(5);
+                    pane.getChildren().add(westLine);
+                }
+
+                this.getChildren().add(pane);
+            }
             updatePlayer();
         }
     }
