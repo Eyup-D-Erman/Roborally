@@ -5,7 +5,7 @@ import dk.dtu.compute.se.pisd.roborally.model.Space;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * This class represents a conveyor belt on a space.
+ * This class represents a checkpoint belt on a space.
  *
  * @author Eyüp  Erman
  *
