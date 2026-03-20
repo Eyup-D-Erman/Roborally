@@ -13,12 +13,12 @@ import org.jetbrains.annotations.NotNull;
 public class Checkpoint extends FieldAction{
     private int number;
 
-    public int getNumber() {
-        return number;
+    public Checkpoint(int number) {
+        this.number = number;
     }
 
-    public void setNumber(int number) {
-        this.number = number;
+    public int getNumber() {
+        return number;
     }
 
     /**
