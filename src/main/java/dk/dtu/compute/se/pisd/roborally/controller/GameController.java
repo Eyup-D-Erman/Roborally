@@ -58,8 +58,10 @@ public class GameController {
             int indexOfPlayer = board.getPlayerNumber(board.getCurrentPlayer());
             int indexOfNextPlayer = ((indexOfPlayer + 1) % board.getPlayersNumber());
 
+            //whoever is next will be found
             Player nextPlayerDownload = board.getPlayer(indexOfNextPlayer);
 
+            //the next player will now be the current player
             board.setCurrentPlayer(nextPlayerDownload); // current.getnextplayer()
             board.setCounter(board.getCounter() + 1);
         }
