@@ -31,6 +31,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import org.jetbrains.annotations.NotNull;
 import javafx.scene.shape.Line;
+import dk.dtu.compute.se.pisd.roborally.controller.FieldAction;
+import dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt;
 
 /**
  * ...
@@ -121,8 +123,26 @@ public class SpaceView extends StackPane implements ViewObserver {
             lineEast.setStrokeWidth(5);
             this.getChildren().add(lineEast);
         }
+        //for the walls we dont use else if but just if statements, because we can have 2 walls at the same time
 
-
+        // i will also make the conveyerbelt because it is a field action
+            for (FieldAction action : space.getActions()) {
+                if (action instanceof ConveyorBelt) {
+                    ConveyorBelt belt = (ConveyorBelt) action;
+                    Heading heading = belt.getHeading();
+                    Polygon arrow = new Polygon(
+                            2.0, 2.0,
+                            (size-6.0)/2.0, size-6.0,
+                            size-6.0, 2.0
+                    );
+                    arrow.setFill(Color.LIGHTGRAY);
+                    //this is some bullshit extra that took way too long
+                    // but it just makes sure that the arrow always face
+                    //the right direction, instead of making 4 different triangles
+                    arrow.setRotate(90 * heading.ordinal());
+                    this.getChildren().add(arrow);
+                }
+            }
 
             // TODO A6b: drawing the walls and the field action(s) on
             //     this space could be implemented here.
