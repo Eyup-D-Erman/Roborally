@@ -22,12 +22,14 @@
 package dk.dtu.compute.se.pisd.roborally.view;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
+import dk.dtu.compute.se.pisd.roborally.model.Heading;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import org.jetbrains.annotations.NotNull;
+import javafx.scene.shape.Line;
 
 /**
  * ...
@@ -89,12 +91,13 @@ public class SpaceView extends StackPane implements ViewObserver {
     public void updateView(Subject subject) {
         if (subject == this.space) {
             this.getChildren().clear();
-
+        if (space.getWalls().contains(Heading.WEST)) {
+            Line linewest = new Line(0,0)
+        }
             // TODO A6b: drawing the walls and the field action(s) on
             //     this space could be implemented here.
 
             updatePlayer();
         }
     }
-
 }
