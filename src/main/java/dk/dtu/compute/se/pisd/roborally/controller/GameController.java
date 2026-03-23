@@ -51,8 +51,12 @@ public class GameController {
         Space oldSpace = current.getSpace();
         //if to make sure there is no player
         if(space.getPlayer() == null && current != null){
+
+            // this makes sure that the game doesnt crash in the first position
+            if (oldSpace != null ) {
+                oldSpace.setPlayer(null);
+            }
             space.setPlayer(current);
-            oldSpace.setPlayer(null);
 
             //index of current player and next
             int indexOfPlayer = board.getPlayerNumber(board.getCurrentPlayer());
