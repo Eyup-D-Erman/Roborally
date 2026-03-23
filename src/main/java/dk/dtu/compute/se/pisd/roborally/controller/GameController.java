@@ -46,18 +46,21 @@ public class GameController {
      */
     public void moveCurrentPlayerToSpace(@NotNull Space space)  {
 
-        //først laver jeg lige en sikring for at der ikke er nogen allerede
+        //variables for player, and position
         Player current = board.getCurrentPlayer();
+        Space oldSpace = current.getSpace();
+        //if to make sure there is no player
         if(space.getPlayer() == null && current != null){
-            space.setPlayer(board.getCurrentPlayer());
-            int indexOfPlayer = board.getPlayerNumber(board.getCurrentPlayer());
+            space.setPlayer(current);
+            oldSpace.setPlayer(null);
 
+            //index of current player and next
+            int indexOfPlayer = board.getPlayerNumber(board.getCurrentPlayer());
             int indexOfNextPlayer = ((indexOfPlayer + 1) % board.getPlayersNumber());
 
             Player nextPlayerDownload = board.getPlayer(indexOfNextPlayer);
 
             board.setCurrentPlayer(nextPlayerDownload); // current.getnextplayer()
-
             board.setCounter(board.getCounter() + 1);
         }
     }
