@@ -49,6 +49,26 @@ public class GameController {
         //variables for player, and position
         Player current = board.getCurrentPlayer();
         Space oldSpace = current.getSpace();
+        Heading direction = Heading.NORTH;
+        // Heading northh, so we are sure that it is always initialized
+
+        //we here check the direction
+        if (oldSpace.x > space.x) {
+            direction = Heading.WEST;
+        }
+        else if (oldSpace.x < space.x) {
+            direction = Heading.EAST;
+        }
+        else if (oldSpace.y > space.y) {
+            direction = Heading.NORTH;
+        }
+        else if (oldSpace.y < space.y) {
+            direction = Heading.SOUTH;
+        }
+        if (oldSpace.getWalls().contains(direction)){
+            return;
+        }
+
         //if to make sure there is no player
         if(space.getPlayer() == null && current != null){
 
