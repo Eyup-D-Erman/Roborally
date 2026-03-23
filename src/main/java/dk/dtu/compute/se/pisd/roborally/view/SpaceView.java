@@ -21,6 +21,7 @@
  */
 package dk.dtu.compute.se.pisd.roborally.view;
 
+import com.google.common.io.RecursiveDeleteOption;
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 import dk.dtu.compute.se.pisd.roborally.model.Heading;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
@@ -91,9 +92,38 @@ public class SpaceView extends StackPane implements ViewObserver {
     public void updateView(Subject subject) {
         if (subject == this.space) {
             this.getChildren().clear();
-        if (space.getWalls().contains(Heading.WEST)) {
-            Line linewest = new Line(0,0)
+
+        //this size will be adapted for the game size
+        double size = this.getWidth();
+
+        //here im gonna add a line for every direction
+        if (space.getWalls().contains(Heading.NORTH)) {
+            Line lineNorth = new Line (0, 0, size, 0);
+            lineNorth.setStroke(Color.BLUE);
+            lineNorth.setStrokeWidth(5);
+            this.getChildren().add(lineNorth);
         }
+        if (space.getWalls().contains(Heading.SOUTH)) {
+            Line lineSouth = new Line (0, size, size, size);
+            lineSouth.setStroke(Color.RED);
+            lineSouth.setStrokeWidth(5);
+            this.getChildren().add(lineSouth);
+        }
+        if (space.getWalls().contains(Heading.WEST)) {
+            Line lineWest = new Line (0, 0, 0, size);
+            lineWest.setStroke(Color.YELLOW);
+            lineWest.setStrokeWidth(5);
+            this.getChildren().add(lineWest);
+        }
+        if (space.getWalls().contains(Heading.EAST)) {
+            Line lineEast = new Line (size, 0, size, size );
+            lineEast.setStroke(Color.ORANGE);
+            lineEast.setStrokeWidth(5);
+            this.getChildren().add(lineEast);
+        }
+
+
+
             // TODO A6b: drawing the walls and the field action(s) on
             //     this space could be implemented here.
 
