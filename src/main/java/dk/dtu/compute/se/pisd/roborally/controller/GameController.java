@@ -52,6 +52,15 @@ public class GameController {
         Heading direction = Heading.NORTH;
         // Heading northh, so we are sure that it is always initialized
 
+
+        //if to make sure there is no player
+        if(space.getPlayer() == null && current != null){
+
+        // this makes sure that the game doesnt crash in the first position
+        if (oldSpace == null ) {
+            space.setPlayer(current);
+        } else {
+
         //we here check the direction
         if (oldSpace.x > space.x) {
             direction = Heading.WEST;
@@ -65,18 +74,17 @@ public class GameController {
         else if (oldSpace.y < space.y) {
             direction = Heading.SOUTH;
         }
+
+        //Here we check if the next chosen position contains a wall
+        //By the direction
         if (oldSpace.getWalls().contains(direction)){
             return;
-        }
-
-        //if to make sure there is no player
-        if(space.getPlayer() == null && current != null){
-
-            // this makes sure that the game doesnt crash in the first position
-            if (oldSpace != null ) {
-                oldSpace.setPlayer(null);
             }
+
+            // Now here if all is right, we remove the old position, and make a new one
+            oldSpace.setPlayer(null);
             space.setPlayer(current);
+        }
 
             //index of current player and next
             int indexOfPlayer = board.getPlayerNumber(board.getCurrentPlayer());
