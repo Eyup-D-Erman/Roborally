@@ -86,7 +86,11 @@ public class BoardFactory {
         return List.of(SIMPLE_BOARD_NAME, ADVANCED_BOARD_NAME);
     }
 
-    // Method for creating a simple board
+    /**
+     * Creates a simple board
+     *
+     * @param board
+     */
     public static void createSimpleBoard(Board board) {
         // Adding board elements
         Space space = board.getSpace(0,0);
@@ -125,6 +129,11 @@ public class BoardFactory {
         space.getActions().add(new Checkpoint(2));
     }
 
+    /**
+     * Creates an advance board
+     *
+     * @param board
+     */
     public static void createAdvancedBoard(Board board) {
         Space space;
         ConveyorBelt action;

@@ -97,6 +97,11 @@ public class SpaceView extends StackPane implements ViewObserver {
         }
     }
 
+    /**
+     * Method for updating the view for drawing the active elements
+     *
+     * @param subject
+     */
     @Override
     public void updateView(Subject subject) {
         if (subject == this.space) {
