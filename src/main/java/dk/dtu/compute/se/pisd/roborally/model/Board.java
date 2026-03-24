@@ -208,7 +208,7 @@ public class Board extends Subject {
      * @return the space in the given direction; null if there is no (reachable) neighbour
      */
     public Space getNeighbour(@NotNull Space space, @NotNull Heading heading) {
-        // TODO A6c: This implementation needs to be adjusted so that walls on
+        // DONE A6c: This implementation needs to be adjusted so that walls on
         //          spaces (and maybe other obstacles) are taken into account
         //          (see above JavaDoc comment for this method).
         int x = space.x;
@@ -216,39 +216,44 @@ public class Board extends Subject {
         switch (heading) {
             case SOUTH:
                 y = (y + 1) % height;
-
-                if(space == space.getWalls()) {
-                    return null;
-                }
-
                 break;
             case WEST:
                 x = (x + width - 1) % width;
-
-                if(space == space.getWalls()) {
-                    return null;
-                }
-
                 break;
             case NORTH:
                 y = (y + height - 1) % height;
-
-                if(space == space.getWalls()) {
-                    return null;
-                }
-
                 break;
             case EAST:
                 x = (x + 1) % width;
-
-                if(space == space.getWalls()) {
-                    return null;
-                }
-
                 break;
         }
 
-        return getSpace(x, y);
+        // The space we need to move to aka the neighbouring space
+        Space targetSpace = getSpace(x, y);
+
+        // Checks if there is a wall on the players current space
+        // by checking each edge
+        if (!space.getWalls().isEmpty()) {
+            for(int i = 0; i < space.getWalls().size(); i++) {
+                if (heading == space.getWalls().get(i)) {
+                    return null;
+                }
+            }
+        }
+
+        // Checks if there is a wall on the space
+        // which the player is moving to by checking
+        // each edge
+        if (!targetSpace.getWalls().isEmpty()) {
+            for (int i = 0; i < targetSpace.getWalls().size(); i++) {
+                if (heading.equals(targetSpace.getWalls().get(i).next().next())) {
+                    return null;
+                }
+            }
+        }
+
+        // returns target space since there is no walls
+        return targetSpace;
     }
 
     public String getStatusMessage() {
