@@ -3,7 +3,7 @@ package dk.dtu.compute.se.pisd.roborally.controller;
 import dk.dtu.compute.se.pisd.roborally.model.Board;
 import dk.dtu.compute.se.pisd.roborally.model.Heading;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
-
+import java.util.List;
 /**
  * A factory for creating boards. The factory itself is implemented as a singleton.
  *
@@ -51,41 +51,54 @@ public class BoardFactory {
 
         Board board;
         if (name == null) {
-            board = new Board(8,8, "<none>");
-        } else {
-            board = new Board(8,8, name);
+            name = "default";
         }
+        //here i make the board
+        board = new Board(8,8, name);
 
-        // add some walls, actions and checkpoints to some spaces
-        Space space = board.getSpace(0,0);
-        space.getWalls().add(Heading.SOUTH);
-        ConveyorBelt action  = new ConveyorBelt();
-        action.setHeading(Heading.WEST);
-        space.getActions().add(action);
 
-        space = board.getSpace(1,0);
-        space.getWalls().add(Heading.NORTH);
-        action  = new ConveyorBelt();
-        action.setHeading(Heading.WEST);
-        space.getActions().add(action);
+        if ("advanced".equals(name)) {
+            // this will be used for the advanced board
+            Space space = board.getSpace(0, 0);
+            space.getWalls().add(Heading.SOUTH);
+            ConveyorBelt action = new ConveyorBelt();
+            action.setHeading(Heading.WEST);
+            space.getActions().add(action);
 
-        space = board.getSpace(1,1);
-        space.getWalls().add(Heading.WEST);
-        action  = new ConveyorBelt();
-        action.setHeading(Heading.NORTH);
-        space.getActions().add(action);
+            space = board.getSpace(1, 0);
+            space.getWalls().add(Heading.NORTH);
+            action = new ConveyorBelt();
+            action.setHeading(Heading.WEST);
+            space.getActions().add(action);
 
-        space = board.getSpace(5,5);
-        space.getWalls().add(Heading.SOUTH);
-        action  = new ConveyorBelt();
-        action.setHeading(Heading.WEST);
-        space.getActions().add(action);
+            space = board.getSpace(1, 1);
+            space.getWalls().add(Heading.WEST);
+            action = new ConveyorBelt();
+            action.setHeading(Heading.NORTH);
+            space.getActions().add(action);
 
-        space = board.getSpace(6,5);
-        action  = new ConveyorBelt();
-        action.setHeading(Heading.WEST);
-        space.getActions().add(action);
+            space = board.getSpace(5, 5);
+            space.getWalls().add(Heading.SOUTH);
+            action = new ConveyorBelt();
+            action.setHeading(Heading.WEST);
+            space.getActions().add(action);
 
+            space = board.getSpace(6, 5);
+            action = new ConveyorBelt();
+            action.setHeading(Heading.WEST);
+            space.getActions().add(action);
+        }
+        //this will be for the default board.
+        //as you can see it is very default.
+        else {
+            Space space = board.getSpace(2,2);
+            space.getWalls().add(Heading.NORTH);
+
+            ConveyorBelt action = new ConveyorBelt();
+            action.setHeading(Heading.EAST);
+            space.getActions().add(action);
+
+        }
         return board;
     }
 
@@ -94,6 +107,10 @@ public class BoardFactory {
     //     createBoard(String name) must return a board for any of the
     //     names in this list. Make sure that the new method that you create
     //     here has a proper JavaDoc documentation.
-    //
+
+    //just the list of the 2 boards.
+    public List<String> getBoardNames() {
+        return List.of("default", "advanced");
+    }
 
 }

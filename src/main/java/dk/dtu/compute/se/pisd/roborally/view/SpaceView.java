@@ -98,27 +98,28 @@ public class SpaceView extends StackPane implements ViewObserver {
         //this size will be adapted for the game size
         double size = this.getWidth();
 
+            System.out.println("Space: (" + space.x + "," + space.y + ") walls=" + space.getWalls());
         //here im gonna add a line for every direction
         if (space.getWalls().contains(Heading.NORTH)) {
-            Line lineNorth = new Line (0, 0, size, 0);
+            Line lineNorth = new Line (2, 2, size-2, 2);
             lineNorth.setStroke(Color.BLUE);
             lineNorth.setStrokeWidth(5);
             this.getChildren().add(lineNorth);
         }
         if (space.getWalls().contains(Heading.SOUTH)) {
-            Line lineSouth = new Line (0, size, size, size);
+            Line lineSouth = new Line (2, size-2, size-2, size-2);
             lineSouth.setStroke(Color.RED);
             lineSouth.setStrokeWidth(5);
             this.getChildren().add(lineSouth);
         }
         if (space.getWalls().contains(Heading.WEST)) {
-            Line lineWest = new Line (0, 0, 0, size);
+            Line lineWest = new Line (2, 2, 2, size-2);
             lineWest.setStroke(Color.YELLOW);
             lineWest.setStrokeWidth(5);
             this.getChildren().add(lineWest);
         }
         if (space.getWalls().contains(Heading.EAST)) {
-            Line lineEast = new Line (size, 0, size, size );
+            Line lineEast = new Line (size-2, 2, size-2, size-2);
             lineEast.setStroke(Color.ORANGE);
             lineEast.setStrokeWidth(5);
             this.getChildren().add(lineEast);
