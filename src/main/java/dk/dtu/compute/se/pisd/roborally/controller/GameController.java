@@ -212,24 +212,51 @@ public class GameController {
         }
     }
 
-    // TODO A6c: implement this method
+    /**
+     * This method moves the player forward one space
+     * if there is no walls in the way the player is heading.
+     *
+     * @param player
+     */
+    // DONE A6c: implement this method
     public void moveForward(@NotNull Player player) {
-
+        Space targetSpace = board.getNeighbour(player.getSpace(), player.getHeading());
+        if (targetSpace != null) {
+            player.setSpace(targetSpace);
+        }
     }
 
-    // TODO A6c: implement this method
+    /**
+     * This method moves the player forward two spaces
+     * if there is no walls in the way the player is heading
+     * by calling the moveForward method twice
+     *
+     * @param player
+     */
+    // DONE A6c: implement this method
     public void fastForward(@NotNull Player player) {
-
+        moveForward(player);
+        moveForward(player);
     }
 
-    // TODO A6c: implement this method
+    /**
+     * This method turns the player clockwise
+     *
+     * @param player
+     */
+    // DONE A6c: implement this method
     public void turnRight(@NotNull Player player) {
-
+        player.setHeading(player.getHeading().next());
     }
 
-    // TODO A6c: implement this method
+    /**
+     * This method turns the player counter-clockwise
+     *
+     * @param player
+     */
+    // DONE A6c: implement this method
     public void turnLeft(@NotNull Player player) {
-
+        player.setHeading(player.getHeading().prev());
     }
 
     // TODO A6c: Add two methods for the new commands BACK and UTURN here.
