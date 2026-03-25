@@ -204,8 +204,14 @@ public class GameController {
                 case FAST_FORWARD:
                     this.fastForward(player);
                     break;
-                // TODO A6c: add the cases for the new commands BACK and UTURN to
+                // DONE A6c: add the cases for the new commands BACK and UTURN to
                 //     this case statement.
+                case BACWARDS:
+                    this.backwards(player);
+                    break;
+                case UTURN:
+                    this.uturn(player);
+                    break;
                 default:
                     // DO NOTHING (for now)//
             }
