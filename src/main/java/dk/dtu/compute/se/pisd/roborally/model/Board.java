@@ -262,10 +262,10 @@ public class Board extends Subject {
         // status of the game
 
         // DONE A6a: add the move count to the status message of the board
-        // TODO A6c: changed the status so that it shows the phase, the current player, and the current register
+        // DONE A6c: changed the status so that it shows the phase, the current player, and the current register
         //     and you can remove the move count status message message and the corresponding counter again
         // TODO A6e: add something to the status message, when a player has won the game
-        return "Player = " + getCurrentPlayer().getName() + ", Number of moves = " + getMoveCounter();
+        return "Phase = " + getPhase() + ", Player = " + getCurrentPlayer().getName();
     }
 
 }
