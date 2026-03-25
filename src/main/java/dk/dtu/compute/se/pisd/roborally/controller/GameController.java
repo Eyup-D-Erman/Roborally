@@ -262,6 +262,28 @@ public class GameController {
     // TODO A6c: Add two methods for the new commands BACK and UTURN here.
 
     /**
+     * This method moves the player backwards by one space
+     * if there is no walls behind the player
+     *
+     * @param player
+     */
+    public void backwards(@NotNull Player player) {
+        Space targetSpace = board.getNeighbour(player.getSpace(), player.getHeading().next().next());
+        if (targetSpace != null) {
+            player.setSpace(targetSpace);
+        }
+    }
+
+    /**
+     * This method makes the player do an u-turn
+     *
+     * @param player
+     */
+    public void uturn(@NotNull Player player) {
+        player.setHeading(player.getHeading().next().next());
+    }
+
+    /**
      * A method called when no corresponding controller operation is implemented yet.
      * This should eventually be removed.
      */
