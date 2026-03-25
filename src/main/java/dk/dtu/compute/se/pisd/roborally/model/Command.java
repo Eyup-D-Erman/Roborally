@@ -47,7 +47,7 @@ public enum Command {
 
     // DONE A6c: add new literals to this enumeration for the two commands
     //     BACK and UTURN, and implement the corresponding command in the
-    //     vlass GameController)
+    //     class GameController
     BACWARDS("Bwd"),
     UTURN("U-turn");
 
