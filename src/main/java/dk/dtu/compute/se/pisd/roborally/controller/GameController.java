@@ -259,7 +259,7 @@ public class GameController {
         player.setHeading(player.getHeading().prev());
     }
 
-    // TODO A6c: Add two methods for the new commands BACK and UTURN here.
+    // DONE A6c: Add two methods for the new commands BACK and UTURN here.
 
     /**
      * This method moves the player backwards by one space
