@@ -96,37 +96,8 @@ public class SpaceView extends StackPane implements ViewObserver {
             this.getChildren().clear();
 
         //this size will be adapted for the game size
-        double size = this.getWidth();
-
-            System.out.println("Space: (" + space.x + "," + space.y + ") walls=" + space.getWalls());
-        //here im gonna add a line for every direction
-        if (space.getWalls().contains(Heading.NORTH)) {
-            Line lineNorth = new Line (2, 2, size-2, 2);
-            lineNorth.setStroke(Color.BLUE);
-            lineNorth.setStrokeWidth(5);
-            this.getChildren().add(lineNorth);
-        }
-        if (space.getWalls().contains(Heading.SOUTH)) {
-            Line lineSouth = new Line (2, size-2, size-2, size-2);
-            lineSouth.setStroke(Color.RED);
-            lineSouth.setStrokeWidth(5);
-            this.getChildren().add(lineSouth);
-        }
-        if (space.getWalls().contains(Heading.WEST)) {
-            Line lineWest = new Line (2, 2, 2, size-2);
-            lineWest.setStroke(Color.YELLOW);
-            lineWest.setStrokeWidth(5);
-            this.getChildren().add(lineWest);
-        }
-        if (space.getWalls().contains(Heading.EAST)) {
-            Line lineEast = new Line (size-2, 2, size-2, size-2);
-            lineEast.setStroke(Color.ORANGE);
-            lineEast.setStrokeWidth(5);
-            this.getChildren().add(lineEast);
-        }
-        //for the walls we dont use else if but just if statements, because we can have 2 walls at the same time
-
-        // i will also make the conveyerbelt because it is a field action
+        double size = 35;
+            // i will also make the conveyerbelt because it is a field action
             for (FieldAction action : space.getActions()) {
                 if (action instanceof ConveyorBelt) {
                     ConveyorBelt belt = (ConveyorBelt) action;
@@ -144,6 +115,36 @@ public class SpaceView extends StackPane implements ViewObserver {
                     this.getChildren().add(arrow);
                 }
             }
+
+            System.out.println("Space: (" + space.x + "," + space.y + ") walls=" + space.getWalls());
+        //here im gonna add a line for every direction
+        if (space.getWalls().contains(Heading.NORTH)) {
+            Line lineNorth = new Line (0, 0, size, 0);
+            lineNorth.setStroke(Color.BLUE);
+            lineNorth.setStrokeWidth(5);
+            this.getChildren().add(lineNorth);
+        }
+        if (space.getWalls().contains(Heading.SOUTH)) {
+            Line lineSouth = new Line (0, size, size, size);
+            lineSouth.setStroke(Color.RED);
+            lineSouth.setStrokeWidth(5);
+            this.getChildren().add(lineSouth);
+        }
+        if (space.getWalls().contains(Heading.WEST)) {
+            Line lineWest = new Line (0, 0, 0, size);
+            lineWest.setStroke(Color.YELLOW);
+            lineWest.setStrokeWidth(5);
+            this.getChildren().add(lineWest);
+        }
+        if (space.getWalls().contains(Heading.EAST)) {
+            Line lineEast = new Line (size, 0, size, size);
+            lineEast.setStroke(Color.ORANGE);
+            lineEast.setStrokeWidth(5);
+            this.getChildren().add(lineEast);
+        }
+        //for the walls we dont use else if but just if statements, because we can have 2 walls at the same time
+
+
 
             // TODO A6b: drawing the walls and the field action(s) on
             //     this space could be implemented here.

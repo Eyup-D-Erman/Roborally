@@ -77,16 +77,19 @@ public class AppController implements Observer {
                     return;
                 }
             }
+            BoardFactory factory = BoardFactory.getInstance();
+            ChoiceDialog<String> boardDialog = new ChoiceDialog<>(factory.getBoardNames().get(0), factory.getBoardNames());
+            boardDialog.setTitle("Board");
+            boardDialog.setHeaderText("Select board");
+            Optional<String> boardResult = boardDialog.showAndWait();
 
-            // TODO A6b: Use a user dialog here (similar to the one above
-            //     for player number) which lets the user select one of the
-            //     available boards, and then create the chosen board using
-            //     the BoardFactory (instead of creating an empty board).
+            if (!boardResult.isPresent()) {
+                return;
+            }
 
-            // The code below just creates an empty board with the chosen
-            // number of players on it.
-            Board board = new Board(8,8);
+            Board board = factory.createBoard(boardResult.get());
             gameController = new GameController(board);
+
             int no = result.get();
             for (int i = 0; i < no; i++) {
                 Player player = new Player(board, PLAYER_COLORS.get(i), "Player " + (i + 1));
@@ -96,7 +99,6 @@ public class AppController implements Observer {
 
             // XXX V2
             gameController.startProgrammingPhase();
-
             roboRally.createBoardView(gameController);
         }
     }
