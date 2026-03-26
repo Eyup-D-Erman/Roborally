@@ -89,9 +89,20 @@ public class BoardFactory {
             space.getActions().add(action);
 
             //laver herunder checkpoints
+            //Checkpoint 1..
             space = board.getSpace(7, 4);
             Checkpoint cp1 = new Checkpoint(1);
             space.getActions().add(cp1);
+
+            //Checkpoint 2..
+            space = board.getSpace(2, 2);
+            Checkpoint cp2 = new Checkpoint(2);
+            space.getActions().add(cp2);
+
+            //Checkpoint 3..
+            space = board.getSpace(5,7);
+            Checkpoint cp3 = new Checkpoint(3);
+            space.getActions().add(cp3);
 
         }
         //this will be for the default board.
