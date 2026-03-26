@@ -87,6 +87,12 @@ public class BoardFactory {
             action = new ConveyorBelt();
             action.setHeading(Heading.WEST);
             space.getActions().add(action);
+
+            //laver herunder checkpoints
+            space = board.getSpace(7, 4);
+            Checkpoint cp1 = new Checkpoint(1);
+            space.getActions().add(cp1);
+
         }
         //this will be for the default board.
         //as you can see it is very default.
