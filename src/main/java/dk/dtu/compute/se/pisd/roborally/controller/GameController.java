@@ -238,6 +238,12 @@ public class GameController {
                 case FAST_FORWARD:
                     this.fastForward(player);
                     break;
+                case uTurn:
+                    this.uTurn(player);
+                    break;
+                case moveBackward:
+                    this.moveBackward(player);
+                    break;
                 // TODO A6c: add the cases for the new commands BACK and UTURN to
                 //     this case statement.
                 default:
@@ -248,23 +254,59 @@ public class GameController {
 
     // TODO A6c: implement this method
     public void moveForward(@NotNull Player player) {
+        //First we check the current space and neigbourhs
+        //we also check the heading direction
+        Space current = player.getSpace();
+        Heading heading = player.getHeading();
+        Space next = board.getNeighbour(current, heading);
 
+        //we check if there is a wall, og something else in the way
+        if (next != null) {
+            moveCurrentPlayerToSpace(next);
+        }
     }
 
     // TODO A6c: implement this method
     public void fastForward(@NotNull Player player) {
+        // Here i make the absolute einstein trick, calling moveFoward method twice
 
-    }
+        moveForward(player);
+        moveForward(player);
+
+        }
+
 
     // TODO A6c: implement this method
     public void turnRight(@NotNull Player player) {
+        //pretty easy since we have a method
 
+        player.setHeading(player.getHeading().next());
     }
 
     // TODO A6c: implement this method
     public void turnLeft(@NotNull Player player) {
+        //again easy, just use the heading prev method
 
+        player.setHeading(player.getHeading().prev());
     }
+
+    public void uTurn(@NotNull Player player) {
+        //for turning around we just need to switch the heading by 90 degrees
+
+        player.setHeading(player.getHeading().next().next());
+    }
+
+    public void moveBackward(@NotNull Player player) {
+        //here we pretty much just need to turn the heading, and move one step foward.
+        Space current = player.getSpace();
+        Heading heading = player.getHeading().next().next();
+        Space next = board.getNeighbour(current, heading);
+
+        if (next != null) {
+            moveCurrentPlayerToSpace(next);
+        }
+    }
+
 
     // TODO A6c: Add two methods for the new commands BACK and UTURN here.
 
