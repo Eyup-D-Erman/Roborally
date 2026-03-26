@@ -3,6 +3,7 @@ package dk.dtu.compute.se.pisd.roborally.controller;
 import dk.dtu.compute.se.pisd.roborally.model.Board;
 import dk.dtu.compute.se.pisd.roborally.model.Heading;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
+import dk.dtu.compute.se.pisd.roborally.model.Space;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -49,7 +50,7 @@ class GameControllerTest {
         Assertions.assertEquals(player2, board.getCurrentPlayer(), "Current player should be " + player2.getName() +"!");
     }
 
-    /*
+
     @Test
     void moveForward() {
         Board board = gameController.board;
@@ -61,7 +62,20 @@ class GameControllerTest {
         Assertions.assertEquals(Heading.SOUTH, current.getHeading(), "Player 0 should be heading SOUTH!");
         Assertions.assertNull(board.getSpace(0, 0).getPlayer(), "Space (0,0) should be empty!");
     }
-    */
+
+    @Test
+    void moveForward_blockedByWall() {
+        Board board = gameController.board;
+        Player current = board.getCurrentPlayer();
+        // thee startpositon
+        Space start = current.getSpace();
+        //this smart line of code, puts a wall the way whoch the player is facing
+        start.getWalls().add(current.getHeading());
+
+        gameController.moveForward(current);
+        Assertions.assertEquals(start, current.getSpace(), "Player should't not mov when blocked by wall!");
+    }
+
 
     // TODO and there should be more tests added for the different assignments eventually
 
