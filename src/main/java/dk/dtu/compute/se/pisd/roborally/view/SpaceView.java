@@ -26,6 +26,7 @@ import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 import dk.dtu.compute.se.pisd.roborally.model.Heading;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
@@ -96,7 +97,7 @@ public class SpaceView extends StackPane implements ViewObserver {
             this.getChildren().clear();
 
         //this size will be adapted for the game size
-        double size = 35;
+        double size = 40;
             // i will also make the conveyerbelt because it is a field action
             for (FieldAction action : space.getActions()) {
                 if (action instanceof ConveyorBelt) {
@@ -118,33 +119,39 @@ public class SpaceView extends StackPane implements ViewObserver {
 
             System.out.println("Space: (" + space.x + "," + space.y + ") walls=" + space.getWalls());
         //here im gonna add a line for every direction
+
+        //Here im going to define the pane, where we are going to place the walls
+        //We also needed to import pane to make this happen
+        Pane wallpane = new Pane();
+        wallpane.setPrefSize(size, size);
+
         if (space.getWalls().contains(Heading.NORTH)) {
             Line lineNorth = new Line (0, 0, size, 0);
             lineNorth.setStroke(Color.BLUE);
             lineNorth.setStrokeWidth(5);
-            this.getChildren().add(lineNorth);
+            wallpane.getChildren().add(lineNorth);
         }
         if (space.getWalls().contains(Heading.SOUTH)) {
             Line lineSouth = new Line (0, size, size, size);
             lineSouth.setStroke(Color.RED);
             lineSouth.setStrokeWidth(5);
-            this.getChildren().add(lineSouth);
+            wallpane.getChildren().add(lineSouth);
         }
         if (space.getWalls().contains(Heading.WEST)) {
             Line lineWest = new Line (0, 0, 0, size);
             lineWest.setStroke(Color.YELLOW);
             lineWest.setStrokeWidth(5);
-            this.getChildren().add(lineWest);
+            wallpane.getChildren().add(lineWest);
         }
         if (space.getWalls().contains(Heading.EAST)) {
             Line lineEast = new Line (size, 0, size, size);
             lineEast.setStroke(Color.ORANGE);
             lineEast.setStrokeWidth(5);
-            this.getChildren().add(lineEast);
+            wallpane.getChildren().add(lineEast);
         }
         //for the walls we dont use else if but just if statements, because we can have 2 walls at the same time
 
-
+        this.getChildren().add(wallpane);
 
             // TODO A6b: drawing the walls and the field action(s) on
             //     this space could be implemented here.
