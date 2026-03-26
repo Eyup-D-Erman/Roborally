@@ -215,8 +215,18 @@ public class Board extends Subject {
                 x = (x + 1) % width;
                 break;
         }
+        if (space.getWalls().contains(heading)) {
+            return null;
+        }
+        //we alsp ahve to check the next move
+        Space next = getSpace(x, y);
 
-        return getSpace(x, y);
+        if (next.getWalls().contains(heading.next().next())) {
+            return null;
+        }
+
+        return next;
+
     }
 
     public String getStatusMessage() {
