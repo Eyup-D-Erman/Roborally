@@ -23,13 +23,16 @@ package dk.dtu.compute.se.pisd.roborally.view;
 
 import com.google.common.io.RecursiveDeleteOption;
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
+import dk.dtu.compute.se.pisd.roborally.controller.Checkpoint;
 import dk.dtu.compute.se.pisd.roborally.model.Heading;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
+import javafx.scene.text.Text;
 import org.jetbrains.annotations.NotNull;
 import javafx.scene.shape.Line;
 import dk.dtu.compute.se.pisd.roborally.controller.FieldAction;
@@ -96,6 +99,17 @@ public class SpaceView extends StackPane implements ViewObserver {
         if (subject == this.space) {
             this.getChildren().clear();
 
+            //here i will make the checkpoint first, because it will fill the tiles
+
+            for (FieldAction action : space.getActions()) {
+                if (action instanceof Checkpoint cp){
+                    Circle circle = new Circle(10);
+                    circle.setFill(Color.YELLOW);
+                    Text circletext = new Text("" + cp.getNumber());
+
+                    this.getChildren().addAll(circle, circletext);
+                }
+            }
         //this size will be adapted for the game size
         double size = 40;
             // i will also make the conveyerbelt because it is a field action
