@@ -227,8 +227,14 @@ public class GameController {
     // DONE A6c: implement this method
     public void moveForward(@NotNull Player player) {
         Space targetSpace = board.getNeighbour(player.getSpace(), player.getHeading());
-        if (targetSpace != null) {
+        if (targetSpace != null && targetSpace.getPlayer() == null) {
             player.setSpace(targetSpace);
+        } else if (targetSpace != null && targetSpace.getPlayer() != null) {
+            try {
+                moveToSpace(player, targetSpace, player.getHeading());
+            } catch (ImpossibleMoveException e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 
@@ -275,8 +281,14 @@ public class GameController {
      */
     public void backwards(@NotNull Player player) {
         Space targetSpace = board.getNeighbour(player.getSpace(), player.getHeading().next().next());
-        if (targetSpace != null) {
+        if (targetSpace != null && targetSpace.getPlayer() == null) {
             player.setSpace(targetSpace);
+        } else if (targetSpace != null && targetSpace.getPlayer() != null) {
+            try {
+                moveToSpace(player, targetSpace, player.getHeading().next().next());
+            } catch (ImpossibleMoveException e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 
@@ -302,5 +314,43 @@ public class GameController {
     private void nextPlayer(Player player) {
         Player nextPlayer = board.getPlayer ((board.getPlayerNumber(player) + 1) % board.getPlayersNumber());
         board.setCurrentPlayer(nextPlayer);
+    }
+
+    private void moveToSpace(@NotNull Player pusher, @NotNull Space space, @NotNull Heading heading)
+        throws ImpossibleMoveException {
+        // Check if there is a robot on the space
+        // which the pusher is trying to move to
+        if (space.getPlayer() != null) {
+            // The robot being pushed
+            Player pushedRobot = space.getPlayer();
+            // The space which the robot being pushed lands one
+            Space pushedTooSpace = board.getNeighbour(space, heading);
+            // Checks if there is no walls and no players/robots
+            if (pushedTooSpace != null && pushedTooSpace.getPlayer() == null) {
+                // Moves the pushed robot to the target space
+                pushedRobot.setSpace(pushedTooSpace);
+                // Moves the pusher
+                moveForward(pusher);
+                // Checks if there is no walls and there are players/robots
+            } else if (pushedTooSpace != null && pushedTooSpace.getPlayer() != null) {
+                // Recursive call
+                moveToSpace(pushedRobot, pushedTooSpace, heading);
+                // Moves the pushed robot to the target space
+                pushedRobot.setSpace(pushedTooSpace);
+                // Moves the pusher
+                moveForward(pusher);
+            } else {
+                throw new ImpossibleMoveException("Cannot push a robot/player through a wall");
+            }
+        }
+
+    }
+}
+
+// Helper class in which the thrown exception is created
+class ImpossibleMoveException extends Exception {
+
+    public ImpossibleMoveException(String message) {
+        super(message);
     }
 }
