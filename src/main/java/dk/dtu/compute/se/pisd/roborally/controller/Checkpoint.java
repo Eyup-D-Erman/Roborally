@@ -26,8 +26,12 @@ public class Checkpoint extends FieldAction{
      */
     @Override
     public boolean doAction(@NotNull GameController gameController, @NotNull Space space) {
-        // ...
-
+        if (space.getPlayer() != null) {
+            if (space.getPlayer().getCheckPoints() == getNumber()-1) {
+                space.getPlayer().setCheckPoints(getNumber());
+                return true;
+            }
+        }
         return false;
     }
 }
