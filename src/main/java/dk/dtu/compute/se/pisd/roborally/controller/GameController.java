@@ -365,7 +365,8 @@ public class GameController {
     private void executeFieldAction() {
         for (int i = 0; i < board.height; i++) {
             for (int j = 0; j < board.width; j++) {
-                if (board.getSpace(i, j).getPlayer()!= null) {
+                Space space = board.getSpace(i, j);
+                if (space != null && space.getPlayer() != null && space.getActions() != null) {
                     for (Object action : board.getSpace(i, j).getActions()) {
                         if (action instanceof ConveyorBelt conveyorBelt) {
                             conveyorBelt.doAction(this,board.getSpace(i, j));
