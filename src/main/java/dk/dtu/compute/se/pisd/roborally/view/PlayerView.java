@@ -22,6 +22,7 @@
 package dk.dtu.compute.se.pisd.roborally.view;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
+import dk.dtu.compute.se.pisd.roborally.controller.Checkpoint;
 import dk.dtu.compute.se.pisd.roborally.controller.GameController;
 import dk.dtu.compute.se.pisd.roborally.model.CommandCardField;
 import dk.dtu.compute.se.pisd.roborally.model.Phase;
@@ -50,6 +51,8 @@ public class PlayerView extends Tab implements ViewObserver {
     private GridPane programPane;
     private Label cardsLabel;
     private GridPane cardsPane;
+
+    private Label checkpointLabel;
 
     private CardFieldView[] programCardViews;
     private CardFieldView[] cardViews;
@@ -130,8 +133,10 @@ public class PlayerView extends Tab implements ViewObserver {
         top.getChildren().add(cardsLabel);
         top.getChildren().add(cardsPane);
 
-        // TODO A6d: a label for the status of this player could be added here
+        // DONE A6d: a label for the status of this player could be added here
         //     for showing the number of achieved checkpoints (etc).
+        checkpointLabel = new Label("Checkpoints: " + player.getCheckPoints());
+        top.getChildren().add(checkpointLabel);
 
         if (player.board != null) {
             player.board.attach(this);
@@ -142,8 +147,9 @@ public class PlayerView extends Tab implements ViewObserver {
     @Override
     public void updateView(Subject subject) {
         if (subject == player.board) {
-            // TODO A6d: update the status label for this player (showing the number
+            // DONE A6d: update the status label for this player (showing the number
             //     of achieved checkpoints)
+            checkpointLabel.setText("Checkpoints: " + player.getCheckPoints());
             for (int i = 0; i < Player.NO_REGISTERS; i++) {
                 CardFieldView cardFieldView = programCardViews[i];
                 if (cardFieldView != null) {
