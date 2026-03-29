@@ -146,7 +146,7 @@ public class GameController {
     }
 
     // XXX A6c
-    // TODO A6d: add the execution of the field actions at the right
+    // DONE A6d: add the execution of the field actions at the right
     //      place in this method
     // TODO A6e: implement the execution af an interactive card to
     //     this method (e.g. by switching to the PLAYER_INTERACTION phase
@@ -362,6 +362,11 @@ public class GameController {
         }
     }
 
+    /**
+     * This method is a helper method that executes field actions
+     * on the board
+     *
+     */
     private void executeFieldAction() {
         for (int i = 0; i < board.height; i++) {
             for (int j = 0; j < board.width; j++) {
@@ -370,6 +375,9 @@ public class GameController {
                     for (Object action : board.getSpace(i, j).getActions()) {
                         if (action instanceof ConveyorBelt conveyorBelt) {
                             conveyorBelt.doAction(this,board.getSpace(i, j));
+                        }
+                        if (action instanceof Checkpoint checkpoint) {
+                            checkpoint.doAction(this, board.getSpace(i, j));
                         }
                     }
                 }
