@@ -316,6 +316,22 @@ public class GameController {
         board.setCurrentPlayer(nextPlayer);
     }
 
+    /**
+     * Moves a player into a target space and pushes any blocking players
+     * in the same direction if possible.
+     *
+     * If the target space is occupied, the player in that space is pushed
+     * to the neighbouring space in the given heading. If that neighbouring
+     * space is also occupied, the method calls itself recursively until an
+     * empty space is found. If no valid space exists because of a wall or
+     * board boundary, an exception is thrown.
+     *
+     * @param pusher pusher the player attempting to move into the target space
+     * @param space space the target space the player is trying to move to
+     * @param heading heading the direction of movement and push
+     * @throws ImpossibleMoveException if a player cannot be pushed because
+     * there is no valid neighbouring space available
+     */
     private void moveToSpace(@NotNull Player pusher, @NotNull Space space, @NotNull Heading heading)
         throws ImpossibleMoveException {
         // Check if there is a robot on the space
