@@ -165,6 +165,7 @@ public class GameController {
                 if (nextPlayerNumber < board.getPlayersNumber()) {
                     board.setCurrentPlayer(board.getPlayer(nextPlayerNumber));
                 } else {
+                    executeFieldAction();
                     step++;
                     if (step < Player.NO_REGISTERS) {
                         makeProgramFieldsVisible(step);
@@ -359,7 +360,20 @@ public class GameController {
                 throw new ImpossibleMoveException("Cannot push a robot/player through a wall");
             }
         }
+    }
 
+    private void executeFieldAction() {
+        for (int i = 0; i < board.height; i++) {
+            for (int j = 0; j < board.width; j++) {
+                if (board.getSpace(i, j).getPlayer()!= null) {
+                    for (Object action : board.getSpace(i, j).getActions()) {
+                        if (action instanceof ConveyorBelt conveyorBelt) {
+                            conveyorBelt.doAction(this,board.getSpace(i, j));
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
