@@ -347,7 +347,10 @@ public class GameController {
                 // Moves the pushed robot to the target space
                 pushedRobot.setSpace(pushedTooSpace);
                 // Moves the pusher
-                moveForward(pusher);
+                Space pusherTargetSpace = board.getNeighbour(pusher.getSpace(), heading);
+                if (pusherTargetSpace != null) {
+                    pusher.setSpace(pusherTargetSpace);
+                }
                 // Checks if there is no walls and there are players/robots
             } else if (pushedTooSpace != null && pushedTooSpace.getPlayer() != null) {
                 // Recursive call
@@ -355,7 +358,10 @@ public class GameController {
                 // Moves the pushed robot to the target space
                 pushedRobot.setSpace(pushedTooSpace);
                 // Moves the pusher
-                moveForward(pusher);
+                Space pusherTargetSpace = board.getNeighbour(pusher.getSpace(), heading);
+                if (pushedTooSpace != null) {
+                    pusher.setSpace(pusherTargetSpace);
+                }
             } else {
                 throw new ImpossibleMoveException("Cannot push a robot/player through a wall");
             }

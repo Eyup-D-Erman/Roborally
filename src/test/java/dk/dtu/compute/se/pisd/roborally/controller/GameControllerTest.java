@@ -163,4 +163,143 @@ class GameControllerTest {
         Assertions.assertEquals(current, board.getSpace(0, 0).getPlayer(), "Player " + current.getName() + " should beSpace (0,0)!");
         Assertions.assertEquals(Heading.SOUTH, current.getHeading(), "Player 0 should be heading SOUTH!");
     }
+
+    @Test
+    void moveForwardPushOneRobot() {
+        Board board = gameController.board;
+        Player current = board.getCurrentPlayer();
+        Player second = board.getPlayer(1);
+
+        second.setSpace(board.getSpace(0, 1));
+
+        gameController.moveForward(current);
+
+        Assertions.assertEquals(current, board.getSpace(0, 1).getPlayer(), "Player " + current.getName() + " should beSpace (0,1)!");
+        Assertions.assertEquals(second, board.getSpace(0, 2).getPlayer(), "Player " + second.getName() + " should beSpace (0,2)!");
+        Assertions.assertEquals(Heading.SOUTH, current.getHeading(), "Player 0 should be heading SOUTH!");
+    }
+
+    @Test
+    void moveForwardPushTwoRobots() {
+        Board board = gameController.board;
+        Player current = board.getCurrentPlayer();
+        Player second = board.getPlayer(1);
+        Player third = board.getPlayer(2);
+
+        second.setSpace(board.getSpace(0, 1));
+        third.setSpace(board.getSpace(0, 2));
+
+        gameController.moveForward(current);
+
+        Assertions.assertEquals(current, board.getSpace(0, 1).getPlayer(), "Player " + current.getName() + " should beSpace (0,1)!");
+        Assertions.assertEquals(second, board.getSpace(0, 2).getPlayer(), "Player " + second.getName() + " should beSpace (0,2)!");
+        Assertions.assertEquals(third, board.getSpace(0, 3).getPlayer(), "Player " + third.getName() + " should beSpace (0,3)!");
+        Assertions.assertEquals(Heading.SOUTH, current.getHeading(), "Player 0 should be heading SOUTH!");
+    }
+
+    @Test
+    void moveForwardPushBlockedByWall() {
+        Board board = gameController.board;
+        Player current = board.getCurrentPlayer();
+        Player second = board.getPlayer(1);
+
+        second.setSpace(board.getSpace(0, 1));
+        board.getSpace(0, 1).getWalls().add(Heading.SOUTH);
+
+        gameController.moveForward(current);
+
+        Assertions.assertEquals(current, board.getSpace(0, 0).getPlayer(), "Player " + current.getName() + " should beSpace (0,0)!");
+        Assertions.assertEquals(second, board.getSpace(0, 1).getPlayer(), "Player " + second.getName() + " should beSpace (0,1)!");
+        Assertions.assertEquals(Heading.SOUTH, current.getHeading(), "Player 0 should be heading SOUTH!");
+    }
+
+    @Test
+    void backwardsPushOneRobot() {
+        Board board = gameController.board;
+        Player current = board.getCurrentPlayer();
+        Player second = board.getPlayer(1);
+
+        current.setSpace(board.getSpace(0, 2));
+        second.setSpace(board.getSpace(0, 1));
+
+        gameController.backwards(current);
+
+        Assertions.assertEquals(current, board.getSpace(0, 1).getPlayer(), "Player " + current.getName() + " should beSpace (0,1)!");
+        Assertions.assertEquals(second, board.getSpace(0, 0).getPlayer(), "Player " + second.getName() + " should beSpace (0,0)!");
+        Assertions.assertEquals(Heading.SOUTH, current.getHeading(), "Player 0 should be heading SOUTH!");
+    }
+
+    @Test
+    void conveyorBeltMovesPlayer() {
+        Board board = gameController.board;
+        Player current = board.getCurrentPlayer();
+
+        ConveyorBelt conveyorBelt = new ConveyorBelt();
+        conveyorBelt.setHeading(Heading.SOUTH);
+        board.getSpace(0, 0).getActions().add(conveyorBelt);
+
+        conveyorBelt.doAction(gameController, board.getSpace(0, 0));
+
+        Assertions.assertEquals(current, board.getSpace(0, 1).getPlayer(), "Player " + current.getName() + " should beSpace (0,1)!");
+        Assertions.assertEquals(null, board.getSpace(0, 0).getPlayer(), "Space (0,0) should be empty!");
+    }
+
+    @Test
+    void conveyorBeltCannotPushTwoPlayersOntoSameSpace() {
+        Board board = gameController.board;
+        Player current = board.getCurrentPlayer();
+        Player second = board.getPlayer(1);
+
+        current.setSpace(board.getSpace(0, 0));
+        second.setSpace(board.getSpace(0, 1));
+
+        ConveyorBelt conveyorBelt = new ConveyorBelt();
+        conveyorBelt.setHeading(Heading.SOUTH);
+        board.getSpace(0, 0).getActions().add(conveyorBelt);
+
+        conveyorBelt.doAction(gameController, board.getSpace(0, 0));
+
+        Assertions.assertEquals(current, board.getSpace(0, 0).getPlayer(), "Player " + current.getName() + " should still beSpace (0,0)!");
+        Assertions.assertEquals(second, board.getSpace(0, 1).getPlayer(), "Player " + second.getName() + " should still beSpace (0,1)!");
+    }
+
+    @Test
+    void checkpointOneCollected() {
+        Board board = gameController.board;
+        Player current = board.getCurrentPlayer();
+
+        Checkpoint checkpoint = new Checkpoint(1);
+        board.getSpace(0, 0).getActions().add(checkpoint);
+
+        checkpoint.doAction(gameController, board.getSpace(0, 0));
+
+        Assertions.assertEquals(1, current.getCheckPoints(), "Player should have collected checkpoint 1!");
+    }
+
+    @Test
+    void checkpointTwoNotCollectedBeforeOne() {
+        Board board = gameController.board;
+        Player current = board.getCurrentPlayer();
+
+        Checkpoint checkpoint = new Checkpoint(2);
+        board.getSpace(0, 0).getActions().add(checkpoint);
+
+        checkpoint.doAction(gameController, board.getSpace(0, 0));
+
+        Assertions.assertEquals(0, current.getCheckPoints(), "Player should not collect checkpoint 2 before checkpoint 1!");
+    }
+
+    @Test
+    void checkpointTwoCollectedAfterOne() {
+        Board board = gameController.board;
+        Player current = board.getCurrentPlayer();
+        current.setCheckPoints(1);
+
+        Checkpoint checkpoint = new Checkpoint(2);
+        board.getSpace(0, 0).getActions().add(checkpoint);
+
+        checkpoint.doAction(gameController, board.getSpace(0, 0));
+
+        Assertions.assertEquals(2, current.getCheckPoints(), "Player should have collected checkpoint 2!");
+    }
 }
