@@ -55,7 +55,7 @@ public class ConveyorBelt extends FieldAction {
         // TODO A6d: needs to be implemented
         if (space.getPlayer() != null) {
             Space targetSpace = gameController.board.getNeighbour(space, this.getHeading());
-            if (targetSpace != null) {
+            if (targetSpace != null && targetSpace.getPlayer() == null) {
                 space.getPlayer().setSpace(targetSpace);
             }
             return true;
