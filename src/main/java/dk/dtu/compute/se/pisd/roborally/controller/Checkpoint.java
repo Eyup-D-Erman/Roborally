@@ -22,7 +22,12 @@ public class Checkpoint extends FieldAction{
     }
 
     /**
-     * Implementation of the action of a conveyor belt. Needs to be implemented.
+     * Allows the player to collect checkpoints only if the player has collected
+     * the previous one.
+     *
+     * @param gameController the gameController of the respective game
+     * @param space the space this action should be executed for
+     * @return
      */
     @Override
     public boolean doAction(@NotNull GameController gameController, @NotNull Space space) {
