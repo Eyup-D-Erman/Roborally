@@ -1,6 +1,7 @@
 package dk.dtu.compute.se.pisd.roborally.controller;
 
 import dk.dtu.compute.se.pisd.roborally.model.Heading;
+import dk.dtu.compute.se.pisd.roborally.model.Phase;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
 import org.jetbrains.annotations.NotNull;
 
@@ -38,6 +39,7 @@ public class Checkpoint extends FieldAction{
                 space.getPlayer().setCheckPoints(getNumber());
 
                 if (isLast) {
+                    gameController.board.setPhase(Phase.FINISHED);
                     return true;
                 }
             }
