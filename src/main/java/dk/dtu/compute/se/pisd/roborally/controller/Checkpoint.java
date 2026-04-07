@@ -12,9 +12,11 @@ import org.jetbrains.annotations.NotNull;
  */
 public class Checkpoint extends FieldAction{
     private int number;
+    private boolean isLast;
 
-    public Checkpoint(int number) {
+    public Checkpoint(int number,boolean isLast) {
         this.number = number;
+        this.isLast = isLast;
     }
 
     public int getNumber() {
@@ -32,9 +34,12 @@ public class Checkpoint extends FieldAction{
     @Override
     public boolean doAction(@NotNull GameController gameController, @NotNull Space space) {
         if (space.getPlayer() != null) {
-            if (space.getPlayer().getCheckPoints() == getNumber()-1) {
+            if (space.getPlayer().getCheckPoints() == getNumber() - 1) {
                 space.getPlayer().setCheckPoints(getNumber());
-                return true;
+
+                if (isLast) {
+                    return true;
+                }
             }
         }
         return false;

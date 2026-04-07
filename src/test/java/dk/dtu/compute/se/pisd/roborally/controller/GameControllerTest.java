@@ -268,7 +268,7 @@ class GameControllerTest {
         Board board = gameController.board;
         Player current = board.getCurrentPlayer();
 
-        Checkpoint checkpoint = new Checkpoint(1);
+        Checkpoint checkpoint = new Checkpoint(1, false);
         board.getSpace(0, 0).getActions().add(checkpoint);
 
         checkpoint.doAction(gameController, board.getSpace(0, 0));
@@ -281,7 +281,7 @@ class GameControllerTest {
         Board board = gameController.board;
         Player current = board.getCurrentPlayer();
 
-        Checkpoint checkpoint = new Checkpoint(2);
+        Checkpoint checkpoint = new Checkpoint(2, false);
         board.getSpace(0, 0).getActions().add(checkpoint);
 
         checkpoint.doAction(gameController, board.getSpace(0, 0));
@@ -295,7 +295,7 @@ class GameControllerTest {
         Player current = board.getCurrentPlayer();
         current.setCheckPoints(1);
 
-        Checkpoint checkpoint = new Checkpoint(2);
+        Checkpoint checkpoint = new Checkpoint(2, false);
         board.getSpace(0, 0).getActions().add(checkpoint);
 
         checkpoint.doAction(gameController, board.getSpace(0, 0));

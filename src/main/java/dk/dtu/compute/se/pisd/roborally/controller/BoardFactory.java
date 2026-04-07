@@ -123,10 +123,10 @@ public class BoardFactory {
         space.getActions().add(action);
 
         space = board.getSpace(2, 2);
-        space.getActions().add(new Checkpoint(1));
+        space.getActions().add(new Checkpoint(1, false));
 
         space = board.getSpace(4, 3);
-        space.getActions().add(new Checkpoint(2));
+        space.getActions().add(new Checkpoint(2, true));
     }
 
     /**
@@ -199,12 +199,12 @@ public class BoardFactory {
 
         // Checkpoints
         space = board.getSpace(6, 1);
-        space.getActions().add(new Checkpoint(1));
+        space.getActions().add(new Checkpoint(1, false));
 
         space = board.getSpace(9, 3);
-        space.getActions().add(new Checkpoint(2));
+        space.getActions().add(new Checkpoint(2, false));
 
         space = board.getSpace(12, 5);
-        space.getActions().add(new Checkpoint(3));
+        space.getActions().add(new Checkpoint(3, true));
     }
 }
