@@ -264,8 +264,18 @@ public class Board extends Subject {
         // DONE A6a: add the move count to the status message of the board
         // DONE A6c: changed the status so that it shows the phase, the current player, and the current register
         //     and you can remove the move count status message message and the corresponding counter again
-        // TODO A6e: add something to the status message, when a player has won the game
-        return "Phase = " + getPhase() + ", Player = " + getCurrentPlayer().getName();
+        // DONE A6e: add something to the status message, when a player has won the game
+        if (getPhase() == Phase.FINISHED) {
+            Player winner = getCurrentPlayer();
+            for (int i = 1; i < players.size(); i++) {
+                if (players.get(i-1).getCheckPoints() < players.get(i).getCheckPoints()) {
+                    winner = players.get(i);
+                }
+            }
+            return "Player " + winner.getName() + " has won the game!";
+        }
+
+        return "Player = " + getCurrentPlayer().getName() + ", Phase = " + getPhase();
     }
 
 }
