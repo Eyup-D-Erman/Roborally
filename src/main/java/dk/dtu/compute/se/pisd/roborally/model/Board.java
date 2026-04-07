@@ -266,9 +266,9 @@ public class Board extends Subject {
         //     and you can remove the move count status message message and the corresponding counter again
         // DONE A6e: add something to the status message, when a player has won the game
         if (getPhase() == Phase.FINISHED) {
-            Player winner = getCurrentPlayer();
+            Player winner = players.get(0);
             for (int i = 1; i < players.size(); i++) {
-                if (players.get(i-1).getCheckPoints() < players.get(i).getCheckPoints()) {
+                if (players.get(i).getCheckPoints() > winner.getCheckPoints()) {
                     winner = players.get(i);
                 }
             }

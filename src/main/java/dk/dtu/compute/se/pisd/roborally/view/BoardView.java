@@ -33,6 +33,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import org.jetbrains.annotations.NotNull;
 
+import javafx.scene.control.Alert;
+
 /**
  * ...
  *
@@ -51,6 +53,9 @@ public class BoardView extends VBox implements ViewObserver {
     private Label statusLabel;
 
     private SpaceEventHandler spaceEventHandler;
+
+    private Alert winnerAlert;
+    private boolean winnerAlertShown = false;
 
     public BoardView(@NotNull GameController gameController) {
         board = gameController.board;
@@ -86,6 +91,16 @@ public class BoardView extends VBox implements ViewObserver {
         if (subject == board) {
             Phase phase = board.getPhase();
             statusLabel.setText(board.getStatusMessage());
+
+            if (phase == Phase.FINISHED && !winnerAlertShown) {
+                winnerAlertShown = true;
+
+                winnerAlert = new Alert(Alert.AlertType.INFORMATION);
+                winnerAlert.setTitle("Game won!");
+                winnerAlert.setHeaderText("Message");
+                winnerAlert.setContentText(board.getStatusMessage() + "!\nCongratulations");
+                winnerAlert.showAndWait();
+            }
         }
     }
 
