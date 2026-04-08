@@ -145,10 +145,20 @@ public class GameController {
         } while (board.getPhase() == Phase.ACTIVATION && !board.isStepMode());
     }
 
+    public void executePlayerInteraction(Command command) {
+        Player currentPlayer = board.getCurrentPlayer();
+
+        if (board.getPhase() == Phase.PLAYER_INTERACTION && currentPlayer != null) {
+            executeCommand(currentPlayer, command);
+            board.setPhase(Phase.ACTIVATION);
+        }
+
+    }
+
     // XXX A6c
     // DONE A6d: add the execution of the field actions at the right
     //      place in this method
-    // TODO A6e: implement the execution af an interactive card to
+    // DONE A6e: implement the execution af an interactive card to
     //     this method (e.g. by switching to the PLAYER_INTERACTION phase
     //     at the right point)
     private void executeNextStep() {
@@ -158,6 +168,11 @@ public class GameController {
             if (step >= 0 && step < Player.NO_REGISTERS) {
                 CommandCard card = currentPlayer.getProgramField(step).getCard();
                 if (card != null) {
+                    if (card.command.isInteractive()) {
+                        board.setPhase(Phase.PLAYER_INTERACTION);
+                        return;
+                    }
+
                     Command command = card.command;
                     executeCommand(currentPlayer, command);
                 }

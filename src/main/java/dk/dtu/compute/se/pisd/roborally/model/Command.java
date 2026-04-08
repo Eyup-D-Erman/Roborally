@@ -49,11 +49,12 @@ public enum Command {
     //     BACK and UTURN, and implement the corresponding command in the
     //     class GameController
     BACWARDS("Bwd"),
-    UTURN("U-turn");
+    UTURN("U-turn"),
 
-    // TODO A6e: add two new commands  here, which are interactive,
+    // DONE A6e: add two new commands  here, which are interactive,
     //     which means that the player can chose between two options when
     //     the command is executed.
+    LEFT_OR_RIGHT("Left OR Right", LEFT, RIGHT);
 
     /**
      * The name shown for this command on the GUI.
