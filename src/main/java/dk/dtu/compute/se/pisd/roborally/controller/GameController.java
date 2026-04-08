@@ -145,14 +145,33 @@ public class GameController {
         } while (board.getPhase() == Phase.ACTIVATION && !board.isStepMode());
     }
 
+    // Method for executing the player interactions cards
     public void executePlayerInteraction(Command command) {
         Player currentPlayer = board.getCurrentPlayer();
+        int step = board.getStep();
 
         if (board.getPhase() == Phase.PLAYER_INTERACTION && currentPlayer != null) {
             executeCommand(currentPlayer, command);
             board.setPhase(Phase.ACTIVATION);
+            advanceGame(currentPlayer, step);
         }
+    }
 
+    private void advanceGame(Player player, int step) {
+        int nextPlayerNumber = board.getPlayerNumber(player) + 1;
+        if (nextPlayerNumber < board.getPlayersNumber()) {
+            board.setCurrentPlayer(board.getPlayer(nextPlayerNumber));
+        } else {
+            executeFieldAction();
+            step++;
+            if (step < Player.NO_REGISTERS) {
+                makeProgramFieldsVisible(step);
+                board.setStep(step);
+                board.setCurrentPlayer(board.getPlayer(0));
+            } else {
+                startProgrammingPhase();
+            }
+        }
     }
 
     // XXX A6c
@@ -176,20 +195,7 @@ public class GameController {
                     Command command = card.command;
                     executeCommand(currentPlayer, command);
                 }
-                int nextPlayerNumber = board.getPlayerNumber(currentPlayer) + 1;
-                if (nextPlayerNumber < board.getPlayersNumber()) {
-                    board.setCurrentPlayer(board.getPlayer(nextPlayerNumber));
-                } else {
-                    executeFieldAction();
-                    step++;
-                    if (step < Player.NO_REGISTERS) {
-                        makeProgramFieldsVisible(step);
-                        board.setStep(step);
-                        board.setCurrentPlayer(board.getPlayer(0));
-                    } else {
-                        startProgrammingPhase();
-                    }
-                }
+                advanceGame(currentPlayer, step);
             } else {
                 // this should not happen
                 assert false;
