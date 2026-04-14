@@ -145,7 +145,12 @@ public class GameController {
         } while (board.getPhase() == Phase.ACTIVATION && !board.isStepMode());
     }
 
-    // Method for executing the player interactions cards
+    /**
+     * Method for executing player interactions cards
+     * Takes a command and if the phase is in interaction phase
+     * the command will be executed.
+     * @param command
+     */
     public void executePlayerInteraction(Command command) {
         Player currentPlayer = board.getCurrentPlayer();
         int step = board.getStep();
@@ -157,6 +162,14 @@ public class GameController {
         }
     }
 
+    /**
+     * Method that advances the game
+     * Takes a player and the step which the game is in and advances
+     * the game to the next player or phase.
+     *
+     * @param player
+     * @param step
+     */
     private void advanceGame(Player player, int step) {
         int nextPlayerNumber = board.getPlayerNumber(player) + 1;
         if (nextPlayerNumber < board.getPlayersNumber()) {
@@ -413,7 +426,9 @@ public class GameController {
     }
 }
 
-// Helper class in which the thrown exception is created
+/**
+ * Helper exception to help with an impossible move exception
+ */
 class ImpossibleMoveException extends Exception {
 
     public ImpossibleMoveException(String message) {
